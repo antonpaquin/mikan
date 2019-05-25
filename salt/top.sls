@@ -1,0 +1,3 @@
+mikan:
+    'mikan-*':
+        - mikan

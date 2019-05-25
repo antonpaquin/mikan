@@ -1,0 +1,20 @@
+[Unit]
+Description=Yarn
+After=syslog.target network.target remote-fs.target nss-lookup.target network-online.target hdfs.service
+Requires=network-online.target
+
+[Service]
+User=hadoop
+Group=hadoop
+Type=simple
+ExecStart=/home/hadoop/hadoop/sbin/start-yarn.sh
+ExecStop=/home/hadoop/hadoop/sbin/stop-yarn.sh
+WorkingDirectory=/srv/hadoop/
+Environment=JAVA_HOME=/usr/lib/jvm/java-8-openjdk-armhf
+Environment=HADOOP_HOME=/home/hadoop/hadoop
+TimeoutStartSec=2min
+Restart=on-failure
+PIDFile=/tmp/hadoop-yarn.pid
+
+[Install]
+WantedBy=multi-user.target

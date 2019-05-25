@@ -1,0 +1,12 @@
+alias ls='ls --color=auto'
+export PS1='\[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+
+export HADOOP_HOME=/home/hadoop/hadoop
+export HADOOP_CONF_DIR=$HADOOP_HOME/etc/hadoop
+
+export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-armhf
+export JAVA_LIBRARY_PATH=$HADOOP_HOME/lib/native:$JAVA_LIBRARY_PATH
+
+export SPARK_HOME=/home/hadoop/spark
+
+export PATH="/usr/local/bin:/usr/bin:/bin:/home/hadoop/hadoop/bin:/home/hadoop/hadoop/sbin"
