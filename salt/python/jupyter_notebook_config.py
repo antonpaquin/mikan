@@ -90,7 +90,7 @@ c.NotebookApp.allow_remote_access = True
 ## The base URL for the notebook server.
 #  
 #  Leading and trailing slashes can be omitted, and will automatically be added.
-#c.NotebookApp.base_url = '/'
+c.NotebookApp.base_url = '/jupyter'
 
 ## Specify what command to use to invoke a web browser when opening the notebook.
 #  If not specified, the default browser will be determined by the `webbrowser`
@@ -258,7 +258,7 @@ c.NotebookApp.ip = '0.0.0.0'
 #c.NotebookApp.nbserver_extensions = {}
 
 ## The directory to use for notebooks and kernels.
-c.NotebookApp.notebook_dir = '/mikan'
+c.NotebookApp.notebook_dir = '/mikan/notebooks'
 
 ## Whether to open in a browser after starting. The specific browser used is
 #  platform dependent and determined by the python standard library `webbrowser`

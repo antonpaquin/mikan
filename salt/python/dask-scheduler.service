@@ -1,0 +1,14 @@
+[Unit]
+Description=Dask Scheduler
+Requires=network-online.target
+
+[Service]
+User=mikan
+Group=mikan
+Type=exec
+ExecStart=/bin/bash -c "source /home/mikan/mikan-env/bin/activate; dask-scheduler"
+WorkingDirectory=/home/mikan/dask/
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target

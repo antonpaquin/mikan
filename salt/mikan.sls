@@ -5,10 +5,6 @@ include:
     - gluster
     - ganglia
     - python
-        # jupyter-haskell?
-    - spark
-    # spark
-    # kubernetes
-    # dask
-    # distcc?
-    # mpi?
+        # TODO various jupyter kernels
+    - nginx
+    - mpi

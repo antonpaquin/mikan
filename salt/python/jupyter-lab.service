@@ -4,7 +4,7 @@ Description=Run jupyter-lab
 [Service]
 User=mikan
 Group=mikan
-ExecStart=/bin/bash -c "source /home/mikan/jupyter-env/bin/activate; jupyter lab --config=/home/mikan/jupyter_notebook_config.py"
+ExecStart=/bin/bash -c "source /home/mikan/mikan-env/bin/activate; jupyter lab --config=/home/mikan/jupyter_notebook_config.py"
 
 [Install]
 WantedBy=default.target

@@ -1,0 +1,5 @@
+distributed:
+    worker:
+      profile:
+          cycle: 1000ms
+          interval: 1000ms

@@ -1,0 +1,14 @@
+[Unit]
+Description=Dask Worker
+Requires=network-online.target
+
+[Service]
+User=mikan
+Group=mikan
+Type=exec
+ExecStart=/bin/bash -c "source /home/mikan/mikan-env/bin/activate; dask-worker tcp://{{ dask_scheduler }}:8786 --nprocs 4 --name {{ worker_name }}"
+WorkingDirectory=/home/mikan/dask
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target

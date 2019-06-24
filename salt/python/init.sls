@@ -14,12 +14,12 @@ pyenv-deps:
       - wget
       - curl
       - llvm
+      - libjpeg-dev
 
 pyenv:
     custom_pyenv.install_pyenv:
         - prefix: /home/mikan
 
-    
 python-{{ python_version }}:
     custom_pyenv.installed:
         - pyenv: /home/mikan/.pyenv
@@ -32,15 +32,32 @@ virtualenv:
         - require:
             - custom_pyenv: python-{{ python_version }}
 
-{% if pillar['jupyter_node'] == grains['id'] %}
-/home/mikan/jupyter-env:
+/home/mikan/dask:
+    file.directory:
+        - user: mikan
+        - group: mikan
+        - dir_mode: 755
+        - recurse:
+            - user
+            - group
+
+/home/mikan/.config/dask/distributed.yaml:
+    file.managed:
+        - source: salt://python/dask-config.yaml
+        - user: mikan
+        - group: mikan
+        - mode: 644
+        - makedirs: True
+
+/home/mikan/mikan-env:
     virtualenv.managed:
         - venv_bin: /home/mikan/.pyenv/versions/{{ python_version }}/bin/virtualenv
         - python: /home/mikan/.pyenv/versions/{{ python_version }}/bin/python
-        - requirements: salt://python/jupyter-requirements.txt
+        - requirements: salt://python/requirements.txt
         - unless: 
-            - test -d /home/mikan/jupyter-env
+            - test -d /home/mikan/mikan-env
 
+{% if pillar['jupyter_node'] == grains['id'] %}
 /home/mikan/jupyter_notebook_config.py:
     file.managed:
         - source: salt://python/jupyter_notebook_config.py
@@ -59,7 +76,37 @@ jupyter-lab:
     service.running:
         - require:
             - file: /lib/systemd/system/jupyter-lab.service
-            - virtualenv: /home/mikan/jupyter-env
+            - virtualenv: /home/mikan/mikan-env
         - watch:
             - file: /home/mikan/jupyter_notebook_config.py
+
+/lib/systemd/system/dask-scheduler.service:
+    file.managed:
+        - source: salt://python/dask-scheduler.service
+        - user: root
+        - group: root
+        - mode: 644
+
+dask-scheduler:
+    service.running:
+        - require:
+            - file: /lib/systemd/system/dask-scheduler.service
+            - virtualenv: /home/mikan/mikan-env
 {% endif %}
+
+/lib/systemd/system/dask-worker.service:
+    file.managed:
+        - source: salt://python/dask-worker.service
+        - user: root
+        - group: root
+        - mode: 644
+        - template: jinja
+        - context:
+            dask_scheduler: {{ pillar['jupyter_node'] }}
+            worker_name: {{ grains['id'] }}
+
+dask-worker:
+    service.running:
+        - require:
+            - file: /lib/systemd/system/dask-worker.service
+            - virtualenv: /home/mikan/mikan-env

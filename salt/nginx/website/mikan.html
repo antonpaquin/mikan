@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>Mikan Cluster</title>
+<style>
+@font-face {
+    font-family: "hakushu_kaisho";
+    src: url(/_hakushu_kaisho.ttf);
+}
+.title {
+    font-size: 140px;
+    font-family: "hakushu_kaisho";
+    margin: 100px 10px 10px 10px;
+}
+.icon-wrap {
+    display: inline-block;
+    margin: 10% auto 0 auto;
+}
+.iconbox {
+    display: inline-block;
+    height: 150px;
+    width: 150px;
+    background-color: #fff;
+    margin: 15px;
+    padding: 15px;
+    border-radius: 10%;
+    border: 4px solid #ff9a00;
+}
+.iconbox img {
+    display: block;
+    height: 100%;
+    margin-left: auto;
+    margin-right: auto;
+}
+body {
+    background-color: #eee;
+    text-align: center;
+}
+#mikan-img {
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+    height: 60%;
+    z-index: -1;
+}
+</style>
+</head>
+<body><!--
+    --><p class="title">みかん</p><!--
+    --><div class="icon-wrap"><!--
+        --><div class="iconbox"><a href="/ganglia/"><img src="_ganglia.svg"/></a></div><!--
+        --><div class="iconbox"><a href="/jupyter"><img src="_jupyter.svg"/></a></div><!--
+        --><div class="iconbox"><a href="/dask/status"><img src="_dask.svg"/></a></div><!--
+    --></div><!--
+    --><img id="mikan-img" src="_mikan.png"></div><!--
+--></body>
+</html>
